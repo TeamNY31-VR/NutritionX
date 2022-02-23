@@ -58,12 +58,23 @@ const body = {
 					onChange={(e) => ingredientsListHandler(e.target.value)}
 				/>
 				</Box>
-				<Button type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
-					.then(() => dispatch(recipeActions.setRecipeName('')))
-					.then(() => dispatch(recipeActions.setIngredientList('')))
-					.then(() => dispatch(syncRecipes()))}
-					>
-						Add
+					<Button type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
+						.then(() => dispatch(recipeActions.setRecipeName('')))
+						.then(() => dispatch(recipeActions.setIngredientList('')))
+						.then(() => dispatch(syncRecipes()))}
+						>
+							Add
+					</Button>
+					{/* Added this */}
+					<Button type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
+						.then(() => dispatch(showFavoriteRecipes()))}
+						>
+							Show Favorites
+					</Button>
+					<Button type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
+						.then(() => dispatch(syncRecipes()))}
+						>
+							Show All
 					</Button>
 				</Box>
 			</FormControl>
