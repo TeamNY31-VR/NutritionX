@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { editRecipe, deleteRecipe, syncRecipes } from '../store/recipes-slice';
+import { editRecipe, deleteRecipe, syncRecipes, showFavoriteRecipes } from '../store/recipes-slice';
 import { useDispatch } from 'react-redux';
 
 // import canvas from 'canvas';
