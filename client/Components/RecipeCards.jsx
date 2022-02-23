@@ -26,11 +26,13 @@ const RecipeCard = (props) => {
 	const [ isEditing, setIsEditing ] = useState(false);
 	const [ editQuery, setQuery ] = useState(props.query);
 	const [ editRecipeName, setEditRecipeName ] = useState(props.name);
+	const [ editFavorite, setEditFavorite ] = useState(props.favorite);
 
 	const editBody = {
 		id: props.id,
 		name: editRecipeName,
-		query: editQuery
+		query: editQuery,
+		favorite: editFavorite
 	};
 
 	const editRecipeNameHandler = (name) => {
@@ -44,9 +46,16 @@ const RecipeCard = (props) => {
 		setIsEditing(true);
 	};
 
+	
 	const submitBtnHandler = () => {
 		setIsEditing(false);
 	};
+	
+	// add event handler on the favorite button 
+	const favoriteBtnHandler = () => {
+		setEditFavorite(!editFavorite);
+	};
+
 
 	const renderCard = (
 		<Card sx={{ mb: 2 }}>
@@ -62,6 +71,18 @@ const RecipeCard = (props) => {
 					<Box sx={{ flexGrow: 1 }}>
 						<Button variant='outlined' size='large' onClick={editBtnHandler}>
 							Edit
+						</Button>
+					</Box>
+					{/* Added a favorityes button */}
+					<Box sx={{ flexGrow: 1 }}>
+						<Button variant='outlined' size='large' 
+						// onClick -> POST req the favorite recipe
+						onClick={() => 
+					  // change the favorite property to true or false
+						dispatch(editRecipe(editBody))
+							.then(() => dispatch(syncRecipes()))
+							.then(() => submitBtnHandler())}>
+							Favorite
 						</Button>
 					</Box>
 					<Box sx={{ flexGrow: 1 }}>
