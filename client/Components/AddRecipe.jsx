@@ -30,15 +30,16 @@ const body = {
 
 
 	return (
-		<Card variant='outlined' sx={{ p: 2}}>
+		<Card id="AddRecipe" variant='outlined' sx={{ p: 2}}>
 
 			<FormControl sx={{width: '100%'}}>
 				<Box container sx={{display: 'flex'}}>
 
-				<Typography variant='h4'>add recipe here</Typography>
+				<Typography variant='h4' role='heading' aria-level='4'>Add Your Meal</Typography>
 				<TextField
 					required
 					label="Name"
+					role="textBox"
 					// id="fullWidth"
 					sx={{ mx: 2 }}
 					value={newRecipeName}
@@ -49,6 +50,7 @@ const body = {
 					// fullWidth 
 					required
 					label="Ingredients"
+					role="textBox"
 					// id="fullWidth" 
 					sx={{ width: '100%' }}
 					// flex={1}
@@ -58,7 +60,7 @@ const body = {
 					onChange={(e) => ingredientsListHandler(e.target.value)}
 				/>
 				</Box>
-				<Button type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
+				<Button role="button" type='submit' variant='outlined' onClick={() => dispatch(addRecipe(body))
 					.then(() => dispatch(recipeActions.setRecipeName('')))
 					.then(() => dispatch(recipeActions.setIngredientList('')))
 					.then(() => dispatch(syncRecipes()))}
