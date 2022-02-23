@@ -27,19 +27,20 @@ describe('<AddRecipe /> component', () => {
 
   afterAll(() => server.close())
 
-  test('accepts user input and sends it in post request when user clicks add button', async () => {
+  test('displays form, accepts user input, and sends it in post request when user clicks add button', async () => {
     render(<AddRecipe />)
+    
+    // form elements renders to screen properly
+    expect(screen.getAllByRole('button')).toHaveLength(3);
+    expect(screen.getByRole('heading')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Name' })).value.toBe('');
+
+    // form accepts user input
+
+    // after clicking 'add', it should recept input form
+
+    // after some time, a 200 response should be received
+
   });
-
-  // describe('form component', () => {
-  //   describe('<Buttons />', () => {
-  //     test('3 buttons renders on page', () =>
-  //       expect(screen.getAllByRole('button')).toHaveLength(3));
-  //   });
-
-  //   describe('<Typography />', () => {
-  //     test('it renders h4 heading to the page', () =>
-  //       expect(screen.getByRole('header')).toBeInTheDocument());
-  //   });
-  // });
+  
 });
