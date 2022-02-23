@@ -1,37 +1,45 @@
-import React from 'react'
-import AddRecipe from '../Components/AddRecipe'
-import renderConnected from './test-utils';
-
+import React from 'react';
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+import AddRecipe from '../Components/AddRecipe';
+import { render, fireEvent, screen }from './test-utils';
 
 
 describe('<AddRecipe /> component', () => {
-  let wrapper, getByText;
   const initialState = {
     recipes: [],
     newRecipeName: '',
     newIngredientsList: '',
     gotRecipes: false,
-  }
+  };
 
-  beforeEach(()=> {
-    const utils = renderConnected(<AddRecipe />, {initialState});
-    wrapper = utils.container;
-    getByText = utils.getByText;
-  })
+  const handlers = [
+    rest.post('/recipes/', (req, res, ctx) => {
+      return res(ctx.json('Added'), ctx.delay(150))
+    })
+  ]
+  
+  const server = setupServer(...handlers)
 
-  test('it renders', () => {
-    expect(wrapper.querySelector('#AddRecipe')).toBeInTheDocument();
+  beforeAll(() => server.listen());
+
+  beforeEach(() => server.resetHandlers());
+
+  afterAll(() => server.close())
+
+  test('accepts user input and sends it in post request when user clicks add button', async () => {
+    render(<AddRecipe />)
   });
 
-  describe('form component', () => {
-   describe('<Button />', () => {
-    test('it renders on page', () => 
-      expect(wrapper.querySelector('button')).toBeInTheDocument())
-    
-    test('it renders on page', () => 
-      expect(wrapper.querySelector('button')).toBeInTheDocument())
-    })   
-  })
-})
+  // describe('form component', () => {
+  //   describe('<Buttons />', () => {
+  //     test('3 buttons renders on page', () =>
+  //       expect(screen.getAllByRole('button')).toHaveLength(3));
+  //   });
 
-
+  //   describe('<Typography />', () => {
+  //     test('it renders h4 heading to the page', () =>
+  //       expect(screen.getByRole('header')).toBeInTheDocument());
+  //   });
+  // });
+});
