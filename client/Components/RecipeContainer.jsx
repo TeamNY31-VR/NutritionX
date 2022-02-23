@@ -24,6 +24,7 @@ const RecipeContainer = () => {
 	for (const recipe of recipes) {
 		const name = recipe.name;
 		const query = recipe.query;
+		const favorite = recipe.favorite;
 		const ingredientList = JSON.parse(recipe.data);
 		// for (const ingredient of ingredientList) {
 		// 	const { food_name, serving_qty, serving_unit, nf_calories, nf_protein, nf_total_carbohydrates, nf_total_fat} = ingredient;
@@ -33,7 +34,8 @@ const RecipeContainer = () => {
 		// }
 		recipeList.push(
 		<Grid key={recipe._id} item>
-			<RecipeCard  id={recipe._id} name={name} ingredientList={ingredientList} query={query}/>
+			{/* // added favorite prop */}
+			<RecipeCard  id={recipe._id} name={name} ingredientList={ingredientList} query={query} favorite={favorite} />
 		</Grid>)
 	}
 
