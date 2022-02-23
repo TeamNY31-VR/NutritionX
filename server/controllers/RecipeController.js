@@ -17,7 +17,7 @@ recipeController.createRecipe = async (req, res, next) => {
                 name: name,
                 query: query,
                 data: JSON.stringify(response.data.foods),
-                favorite: true // <- added favorite property
+                favorite: false // <- added favorite property
             })
         console.log('Created new recipe in database successfully')
         res.locals.newRecipe = newRecipe;
@@ -47,8 +47,8 @@ recipeController.getRecipes = async (req, res, next) => {
 }
 
 recipeController.editRecipe = async (req, res, next) => {
-    const { query, name, id, favorite = true } = req.body; // <- added favorite and set to true as a test
-    console.log(req.body, 'inside controller');
+    const { query, name, id, favorite } = req.body; // <- added favorite and set to true as a test
+    // console.log(req.body, 'inside controller');
 
     const dbUpdateObj = {};
     try {
@@ -101,6 +101,30 @@ recipeController.getFavorites = async (req, res, next) => {
         return next({
             log: `recipeController.getFavorites: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.getFavorites. Check server logs for more details.' },
+          })
+    }
+}
+
+recipeController.addFavorites = async (req, res, next) => {
+    const { query, name, id, favorite } = req.body;
+    console.log(favorite);
+    const dbUpdateObj = {};
+        // dbUpdateObj.query = query;
+        // dbUpdateObj.data = JSON.stringify(dbResponse.data.foods);
+        // dbUpdateObj.name = name;
+        dbUpdateObj.favorite = favorite;
+    try {
+        const updatedRecipe = await Recipe.findOneAndUpdate({
+            _id: id,
+            }, dbUpdateObj, {new: true});
+            res.locals.favoriteRecipe = updatedRecipe;
+            console.log('favorite added successfully')
+            return next();
+
+    } catch (err) {
+        return next({
+            log: `recipeController.addFavorites: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
+            message: { err: 'Error occurred in recipeController.addFavorites. Check server logs for more details.' },
           })
     }
 }
