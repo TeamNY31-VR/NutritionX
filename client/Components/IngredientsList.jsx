@@ -9,8 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein, thumbUrl) {
-	return { name, calories, fat, carbs, protein, thumbUrl };
+// added serving_qty, serving_unit
+function createData(name, serving_qty, serving_unit, calories, fat, carbs, protein, thumbUrl) {
+	return { name, serving_qty, serving_unit, calories, fat, carbs, protein, thumbUrl };
 }
 
 //Import Components
@@ -31,6 +32,8 @@ const IngredientsList = (props) => {
 
 		rows.push(createData(
 			food_name,
+			serving_qty, 
+			serving_unit,
 			nf_calories,
 			nf_total_fat,
 			nf_total_carbohydrate,
@@ -38,7 +41,7 @@ const IngredientsList = (props) => {
 			thumbUrl
 		))
 	}
-
+	
 	// const rows = [
 	// 	createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
 	// 	createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -54,6 +57,13 @@ const IngredientsList = (props) => {
 					<TableRow sx={{ fontWeight: 'bold' }}>
 						<TableCell>
 							<b>Ingredient Name</b>
+						</TableCell>
+						<TableCell align='right'>
+							{/* // adding serving qty + units */}
+							<b>Serving Qty</b>
+						</TableCell>
+						<TableCell align='left'>
+							<b>Units</b>
 						</TableCell>
 						<TableCell align='right'>
 							<b>Calories</b>
@@ -79,6 +89,9 @@ const IngredientsList = (props) => {
 								{row.name}
 								<img src={row.thumbUrl} style={{ width: '30px', height: '30px', marginLeft: '5px', borderRadius: '50%'}}></img>
 							</TableCell>
+							{/* // adding serving qty + units */}
+							<TableCell align='right'>{row.serving_qty}</TableCell>
+							<TableCell align='left'>{row.serving_unit}</TableCell>
 							<TableCell align='right'>{row.calories}</TableCell>
 							<TableCell align='right'>{row.fat}</TableCell>
 							<TableCell align='right'>{row.carbs}</TableCell>
