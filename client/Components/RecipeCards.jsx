@@ -81,11 +81,11 @@ const RecipeCard = (props) => {
 					  // change the favorite property to true or false
 						dispatch(editRecipe(editBody))
 							.then(() => dispatch(syncRecipes()))
-							.then(() => submitBtnHandler())}>
+							.then(() => favoriteBtnHandler())}>
 							Favorite
 						</Button>
 					</Box>
-					<Box sx={{ flexGrow: 1 }}>
+					<Box sx={{ flexGrow: 0 }}>
 						<Button
 							variant='outlined'
 							size='large'
