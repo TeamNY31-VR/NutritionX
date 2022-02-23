@@ -16,10 +16,12 @@ recipeController.createRecipe = async (req, res, next) => {
         const newRecipe = await Recipe.create({
                 name: name,
                 query: query,
-                data: JSON.stringify(response.data.foods)
+                data: JSON.stringify(response.data.foods),
+                favorite: false, // <- added favorite property
             })
         console.log('Created new recipe in database successfully')
         res.locals.newRecipe = newRecipe;
+        // console.log(newRecipe.favorite);
         return next();
     } catch (err) {
         console.log(err)
@@ -45,7 +47,7 @@ recipeController.getRecipes = async (req, res, next) => {
 }
 
 recipeController.editRecipe = async (req, res, next) => {
-    const { query, name, id } = req.body;
+    const { query, name, id, favorite = true } = req.body; // <- added favorite and set to true as a test
     console.log(req.body, 'inside controller');
 
     const dbUpdateObj = {};
@@ -58,10 +60,12 @@ recipeController.editRecipe = async (req, res, next) => {
             dbUpdateObj.query = query;
             dbUpdateObj.data = JSON.stringify(dbResponse.data.foods);
             dbUpdateObj.name = name;
+            dbUpdateObj.favorite = favorite; // <- added favorite
             const updatedRecipe = await Recipe.findOneAndUpdate({
             _id: id,
             }, dbUpdateObj, {new: true});
             res.locals.updatedRecipe = updatedRecipe;
+            // console.log(updatedRecipe.favorite) // <- test for favorite in editRecipe controller
             return next();
     } catch (err) {
         console.log(err)
