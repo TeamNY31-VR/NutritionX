@@ -85,7 +85,7 @@ const RecipeCard = (props) => {
 							Favorite
 						</Button>
 					</Box>
-					<Box sx={{ flexGrow: 1 }}>
+					<Box sx={{ flexGrow: 0 }}>
 						<Button
 							variant='outlined'
 							size='large'
