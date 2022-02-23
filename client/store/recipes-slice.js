@@ -23,6 +23,20 @@ export const syncRecipes = createAsyncThunk(
 	}
 );
 
+export const showFavoriteRecipies = createAsyncThunk(
+	'recipes/showFavoriteRecipesStatus',
+	async () => {
+		try {
+			console.log('in the showFavoriteRecipies Thunk function');
+			const response = await axios.get('/recipes/favorites');
+			// console.log('Here is your data: ', response);
+			return response.data.reverse();
+		} catch (e) {
+			console.log(e);
+		}
+	}
+);
+
 export const editRecipe = createAsyncThunk(
 	'/recipes/editRecipeStatus',
 	async (editBody) => {
