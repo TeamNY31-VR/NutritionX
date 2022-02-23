@@ -19,6 +19,11 @@ router.get('/favorites', recipeController.getFavorites, (req, res) => {
     return res.status(200).json(res.locals.favorites)
 })
 
+// //router.addFavorites
+// router.put('/', recipeController.addFavorites, (req, res) => {
+//     return res.status(200).json(res.locals.favoriteRecipe);
+// })
+
 //router.patch
 router.put('/', recipeController.editRecipe, (req, res) => { 
     return res.status(200).json(res.locals.updatedRecipe) 
@@ -29,10 +34,6 @@ router.delete('/:id', recipeController.deleteRecipe, (req, res) => {
     return res.status(200).json('Recipe deleted successfully.') 
 })
 
-//router.addFavorites
-router.put('/', recipeController.addFavorites, (req, res) => {
-    return res.status(200).json(res.locals.favoriteRecipe);
-})
 
 module.exports = router;
  

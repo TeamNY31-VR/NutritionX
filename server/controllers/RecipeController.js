@@ -92,8 +92,10 @@ recipeController.deleteRecipe = async (req, res, next) => {
 }
 
 recipeController.getFavorites = async (req, res, next) => {
+    console.log(req)
     try {
         const favorites = await Recipe.find({ favorite: true });
+
         res.locals.favorites = favorites;
         return next();
     } catch (err) {
@@ -105,29 +107,27 @@ recipeController.getFavorites = async (req, res, next) => {
     }
 }
 
-recipeController.addFavorites = async (req, res, next) => {
-    const { query, name, id, favorite } = req.body;
-    console.log(favorite);
-    const dbUpdateObj = {};
-        // dbUpdateObj.query = query;
-        // dbUpdateObj.data = JSON.stringify(dbResponse.data.foods);
-        // dbUpdateObj.name = name;
-        dbUpdateObj.favorite = favorite;
-    try {
-        const updatedRecipe = await Recipe.findOneAndUpdate({
-            _id: id,
-            }, dbUpdateObj, {new: true});
-            res.locals.favoriteRecipe = updatedRecipe;
-            console.log('favorite added successfully')
-            return next();
+// recipeController.addFavorites = async (req, res, next) => {
+//     const { query, name, id, favorite } = req.body;
+//     console.log('In favorite controller: ', favorite);
+//     const dbUpdateObj = {};
+//     dbUpdateObj.favorite = favorite;
+    
+//     try {
+//         const updatedRecipe = await Recipe.findOneAndUpdate({
+//             _id: id,
+//             }, dbUpdateObj, {new: true});
+//             res.locals.favoriteRecipe = updatedRecipe;
+//             console.log('favorite added successfully')
+//             return next();
 
-    } catch (err) {
-        return next({
-            log: `recipeController.addFavorites: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
-            message: { err: 'Error occurred in recipeController.addFavorites. Check server logs for more details.' },
-          })
-    }
-}
+//     } catch (err) {
+//         return next({
+//             log: `recipeController.addFavorites: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
+//             message: { err: 'Error occurred in recipeController.addFavorites. Check server logs for more details.' },
+//           })
+//     }
+// }
 
 module.exports = recipeController;
 
