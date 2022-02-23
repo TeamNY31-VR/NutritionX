@@ -14,6 +14,11 @@ router.get('/', recipeController.getRecipes, (req, res) => {
     return res.status(200).json(res.locals.recipes) 
 })
 
+//router.get/favorites
+router.get('/favorites', recipeController.getFavorites, (req, res) => { 
+    return res.status(200).json(res.locals.favorites)
+})
+
 //router.patch
 router.put('/', recipeController.editRecipe, (req, res) => { 
     return res.status(200).json(res.locals.updatedRecipe) 
