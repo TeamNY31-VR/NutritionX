@@ -19,12 +19,12 @@ recipeController.createRecipe = async (req, res, next) => {
                 data: JSON.stringify(response.data.foods),
                 favorite: false // <- added favorite property
             })
-        console.log('Created new recipe in database successfully')
+        // console.log('Created new recipe in database successfully')
         res.locals.newRecipe = newRecipe;
         // console.log(newRecipe.favorite);
         return next();
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         return next({
             log: `recipeController.createRecipe: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.createRecipe. Check server logs for more details.' },
@@ -38,7 +38,7 @@ recipeController.getRecipes = async (req, res, next) => {
         res.locals.recipes = recipes;
         return next();
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         return next({
             log: `recipeController.getRecipes: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.getRecipes. Check server logs for more details.' },
@@ -68,7 +68,7 @@ recipeController.editRecipe = async (req, res, next) => {
             // console.log(updatedRecipe.favorite) // <- test for favorite in editRecipe controller
             return next();
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         return next({
             log: `recipeController.editRecipe: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.editRecipe. Check server logs for more details.' },
@@ -83,7 +83,7 @@ recipeController.deleteRecipe = async (req, res, next) => {
         });
         return next();
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         return next({
             log: `recipeController.deleteRecipe: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.deleteRecipes. Check server logs for more details.' },
@@ -92,14 +92,15 @@ recipeController.deleteRecipe = async (req, res, next) => {
 }
 
 recipeController.getFavorites = async (req, res, next) => {
-    console.log(req)
+    // console.log(req)
     try {
         const favorites = await Recipe.find({ favorite: true });
 
         res.locals.favorites = favorites;
+        
         return next();
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         return next({
             log: `recipeController.getFavorites: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err}`,
             message: { err: 'Error occurred in recipeController.getFavorites. Check server logs for more details.' },
