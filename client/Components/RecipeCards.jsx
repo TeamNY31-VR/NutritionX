@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { editRecipe, deleteRecipe, syncRecipes, showFavoriteRecipes } from '../store/recipes-slice';
 import { useDispatch } from 'react-redux';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // import canvas from 'canvas';
 
@@ -47,8 +49,7 @@ const RecipeCard = (props) => {
 		setIsEditing(true);
 	};
 
-	
-	const submitBtnHandler = () => {
+		const submitBtnHandler = () => {
 		setIsEditing(false);
 	};
 	
@@ -62,12 +63,13 @@ const RecipeCard = (props) => {
 		<Card sx={{ mb: 2 }}>
 			<Typography gutterBottom variant='h4' component='div' align='center'>
 				{props.name}
+				{' '}
+				{(function() { 
+					if(editFavorite) {
+						return <FavoriteIcon sx={{color: 'maroon'}}/>
+					}
+				})()}
 			</Typography>
-			{(function() { 
-				if(editFavorite) {
-					return <Typography variant="h3" component='div' align='center'>heart</Typography>
-				}
-			})()}
 			<ChartContainer ingredientList={props.ingredientList} />
 			<CardContent>
 				<IngredientsList ingredientList={props.ingredientList} recipeName={props.name} />
@@ -83,11 +85,12 @@ const RecipeCard = (props) => {
 					<Box sx={{ flexGrow: 1 }}>
 						<Button variant='outlined' size='large' 
 						// onClick -> POST req the favorite recipe
-						onClick={() => 
+						onClick={() => {
+							favoriteBtnHandler();
 					  // change the favorite property to true or false
-						dispatch(editRecipe(editBody))
-							.then(() => dispatch(syncRecipes()))
-							.then(() => favoriteBtnHandler())}>
+							dispatch(editRecipe(editBody))
+							.then(() => dispatch(syncRecipes()))}}>
+							{/* // .then(() => favoriteBtnHandler())}> */}
 							Favorite
 						</Button>
 					</Box>
