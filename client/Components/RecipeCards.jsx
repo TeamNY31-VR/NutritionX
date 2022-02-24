@@ -62,6 +62,11 @@ const RecipeCard = (props) => {
 			<Typography gutterBottom variant='h4' component='div' align='center'>
 				{props.name}
 			</Typography>
+			{(function() { 
+				if(editFavorite) {
+					return <Typography variant="h3" component='div' align='center'>heart</Typography>
+				}
+			})()}
 			<ChartContainer ingredientList={props.ingredientList} />
 			<CardContent>
 				<IngredientsList ingredientList={props.ingredientList} recipeName={props.name} />
