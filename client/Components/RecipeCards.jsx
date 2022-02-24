@@ -19,6 +19,7 @@ import IngredientsList from './IngredientsList.jsx';
 import ChartContainer from './ChartContainer.jsx';
 import DoughnutChart from './ChartJS/PieChart.jsx';
 
+
 const RecipeCard = (props) => {
 	const dispatch = useDispatch();
 	console.log("Here's the ingredient list: ", props.ingredientList);

@@ -9,16 +9,16 @@ recipeController.createRecipe = async (req, res, next) => {
     const { name, query } = req.body;
     try {
         const response = await axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients',
-            {query: `${query}`},
-            {headers: {"Content-Type": "application/json", 
-            "x-app-id": process.env.X_APP_ID,
-            "x-app-key": process.env.X_APP_KEY}});
+        {query: `${query}`},
+        {headers: {"Content-Type": "application/json", 
+        "x-app-id": process.env.X_APP_ID,
+        "x-app-key": process.env.X_APP_KEY}});
         const newRecipe = await Recipe.create({
-                name: name,
-                query: query,
-                data: JSON.stringify(response.data.foods),
-                favorite: false // <- added favorite property
-            })
+            name: name,
+            query: query,
+            data: JSON.stringify(response.data.foods),
+            favorite: false // <- added favorite property
+        })
         // console.log('Created new recipe in database successfully')
         res.locals.newRecipe = newRecipe;
         // console.log(newRecipe.favorite);
