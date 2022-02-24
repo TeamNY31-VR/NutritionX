@@ -70,6 +70,7 @@ const AddRecipe = () => {
             />
           </Box>
           <Button
+          id="add-btn"
             type="submit"
             variant="outlined"
             onClick={() =>
@@ -81,8 +82,8 @@ const AddRecipe = () => {
           >
             Add
           </Button>
-          {/* Added this */}
           <Button
+          id="show-faves-btn"
             type="submit"
             variant="outlined"
             onClick={() =>
@@ -94,6 +95,7 @@ const AddRecipe = () => {
             Show Favorites
           </Button>
           <Button
+            id="show-all-btn"
             type="submit"
             variant="outlined"
             onClick={() =>
