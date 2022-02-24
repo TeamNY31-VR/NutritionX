@@ -14,7 +14,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { recipeActions } from '../store/recipes-slice';
-import { addRecipe, syncRecipes } from '../store/recipes-slice';
+import { addRecipe, syncRecipes, showFavoriteRecipes } from '../store/recipes-slice';
 
 const AddRecipe = () => {
   const dispatch = useDispatch();

@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { editRecipe, deleteRecipe, syncRecipes } from '../store/recipes-slice';
+import { editRecipe, deleteRecipe, syncRecipes, showFavoriteRecipes } from '../store/recipes-slice';
 import { useDispatch } from 'react-redux';
 
 // import canvas from 'canvas';
@@ -62,6 +62,11 @@ const RecipeCard = (props) => {
 			<Typography gutterBottom variant='h4' component='div' align='center'>
 				{props.name}
 			</Typography>
+			{(function() { 
+				if(editFavorite) {
+					return <Typography variant="h3" component='div' align='center'>heart</Typography>
+				}
+			})()}
 			<ChartContainer ingredientList={props.ingredientList} />
 			<CardContent>
 				<IngredientsList ingredientList={props.ingredientList} recipeName={props.name} />
