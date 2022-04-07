@@ -23,6 +23,20 @@ export const syncRecipes = createAsyncThunk(
 	}
 );
 
+export const showFavoriteRecipes = createAsyncThunk(
+	'recipes/showFavoriteRecipesStatus',
+	async () => {
+		try {
+			console.log('in the showFavoriteRecipes Thunk function');
+			const response = await axios.get('/recipes/favorites');
+			// console.log('Here is your data: ', response.data);
+			return response.data.reverse();
+		} catch (e) {
+			console.log(e);
+		}
+	}
+);
+
 export const editRecipe = createAsyncThunk(
 	'/recipes/editRecipeStatus',
 	async (editBody) => {
@@ -104,7 +118,13 @@ const recipeReducer = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(syncRecipes.fulfilled, (state, action) => {
-			console.log('In builder ');
+			// console.log('In builder ');
+			// console.log(action.payload.data);
+			state.recipes = action.payload;
+		});
+		// Adding this to refresh state with favorites
+		builder.addCase(showFavoriteRecipes.fulfilled, (state, action) => {
+			// console.log('In builder ');
 			// console.log(action.payload.data);
 			state.recipes = action.payload;
 		});

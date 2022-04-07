@@ -9,8 +9,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { editRecipe, deleteRecipe, syncRecipes } from '../store/recipes-slice';
+import { editRecipe, deleteRecipe, syncRecipes, showFavoriteRecipes } from '../store/recipes-slice';
 import { useDispatch } from 'react-redux';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // import canvas from 'canvas';
 
@@ -19,6 +21,7 @@ import IngredientsList from './IngredientsList.jsx';
 import ChartContainer from './ChartContainer.jsx';
 import DoughnutChart from './ChartJS/PieChart.jsx';
 
+
 const RecipeCard = (props) => {
 	const dispatch = useDispatch();
 	console.log("Here's the ingredient list: ", props.ingredientList);
@@ -26,11 +29,13 @@ const RecipeCard = (props) => {
 	const [ isEditing, setIsEditing ] = useState(false);
 	const [ editQuery, setQuery ] = useState(props.query);
 	const [ editRecipeName, setEditRecipeName ] = useState(props.name);
+	const [ editFavorite, setEditFavorite ] = useState(props.favorite);
 
 	const editBody = {
 		id: props.id,
 		name: editRecipeName,
-		query: editQuery
+		query: editQuery,
+		favorite: editFavorite
 	};
 
 	const editRecipeNameHandler = (name) => {
@@ -44,14 +49,26 @@ const RecipeCard = (props) => {
 		setIsEditing(true);
 	};
 
-	const submitBtnHandler = () => {
+		const submitBtnHandler = () => {
 		setIsEditing(false);
 	};
+	
+	// add event handler on the favorite button 
+	const favoriteBtnHandler = () => {
+		setEditFavorite(!editFavorite);
+	};
+
 
 	const renderCard = (
 		<Card sx={{ mb: 2 }}>
 			<Typography gutterBottom variant='h4' component='div' align='center'>
 				{props.name}
+				{' '}
+				{(function() { 
+					if(editFavorite) {
+						return <FavoriteIcon sx={{color: 'maroon'}}/>
+					}
+				})()}
 			</Typography>
 			<ChartContainer ingredientList={props.ingredientList} />
 			<CardContent>
@@ -64,7 +81,20 @@ const RecipeCard = (props) => {
 							Edit
 						</Button>
 					</Box>
+					{/* Added a favorityes button */}
 					<Box sx={{ flexGrow: 1 }}>
+						<Button variant='outlined' size='large' 
+						// onClick -> POST req the favorite recipe
+						onClick={() => {
+							favoriteBtnHandler();
+					  // change the favorite property to true or false
+							dispatch(editRecipe(editBody))
+							.then(() => dispatch(syncRecipes()))}}>
+							{/* // .then(() => favoriteBtnHandler())}> */}
+							Favorite
+						</Button>
+					</Box>
+					<Box sx={{ flexGrow: 0 }}>
 						<Button
 							variant='outlined'
 							size='large'
